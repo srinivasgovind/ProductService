@@ -1,18 +1,19 @@
 package dev.srinivas.ProductService.dto;
 
+
+import dev.srinivas.ProductService.model.Price;
+import dev.srinivas.ProductService.model.Product;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-import java.util.UUID;
-
 @Getter
 @Setter
-public class FakeStoreProductResponseDTO implements Serializable {
-    private UUID id;
+public class GenericProductDto {
+    private Long id;
     private String title;
-    private double price;
+    private int price;
     private String category;
     private String description;
     private String image;
+
 }

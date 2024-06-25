@@ -8,7 +8,7 @@ import dev.srinivas.ProductService.model.Product;
 import dev.srinivas.ProductService.repository.CategoryRepository;
 import dev.srinivas.ProductService.repository.OrderRepository;
 import dev.srinivas.ProductService.repository.PriceRepository;
-import dev.srinivas.ProductService.repository.ProductRepository;
+import dev.srinivas.ProductService.repository.ProductJpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 public class InitServiceImpl implements InitService{
 
-    private ProductRepository productRepository;
+    private ProductJpaRepository productJpaRepository;
 
     private PriceRepository priceRepository;
 
@@ -26,8 +26,8 @@ public class InitServiceImpl implements InitService{
 
 
 
-    public InitServiceImpl(ProductRepository productRepository, PriceRepository priceRepository,OrderRepository orderRepository, CategoryRepository categoryRepository){
-        this.productRepository = productRepository;
+    public InitServiceImpl(ProductJpaRepository productJpaRepository, PriceRepository priceRepository, OrderRepository orderRepository, CategoryRepository categoryRepository){
+        this.productJpaRepository = productJpaRepository;
         this.orderRepository = orderRepository;
         this.categoryRepository = categoryRepository;
         this.priceRepository = priceRepository;
@@ -73,7 +73,7 @@ public class InitServiceImpl implements InitService{
         iphone.setImage("https://google.com/iphone15");
         iphone.setPrice(priceIphone);
         iphone.setCategory(electronics);
-        iphone = productRepository.save(iphone);
+        iphone = productJpaRepository.save(iphone);
 
         Product macbook = new Product();
         macbook.setTitle("Macbook Pro 16");
@@ -81,7 +81,7 @@ public class InitServiceImpl implements InitService{
         macbook.setImage("http://someImageURl");
         macbook.setPrice(priceMacbook);
         macbook.setCategory(electronics);
-        macbook = productRepository.save(macbook);
+        macbook = productJpaRepository.save(macbook);
 
         Product watch = new Product();
         watch.setTitle("Watch Series 10");
@@ -89,7 +89,7 @@ public class InitServiceImpl implements InitService{
         watch.setImage("http://someImageURl");
         watch.setPrice(priceWatch);
         watch.setCategory(electronics);
-        watch = productRepository.save(watch);
+        watch = productJpaRepository.save(watch);
 
         Product ps5 = new Product();
         ps5.setTitle("PlayStation5");
@@ -97,7 +97,7 @@ public class InitServiceImpl implements InitService{
         ps5.setImage("http://someImageURl");
         ps5.setPrice(pricePS);
         ps5.setCategory(electronics);
-        ps5 = productRepository.save(ps5);
+        ps5 = productJpaRepository.save(ps5);
 
         Order order = new Order();
         order.setProducts(List.of(iphone,macbook,watch,ps5));

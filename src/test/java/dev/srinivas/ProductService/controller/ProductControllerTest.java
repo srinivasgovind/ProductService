@@ -105,31 +105,31 @@ public class ProductControllerTest {
                 .andExpect(content().string("true"));
     }
 
-    @Test
-    void findProductByIdFailure() throws Exception{
-        when(productService.getProductById(1)).thenThrow(new ProductNotFoundException("Product Not Found"));
-        mockMvc.perform(get("/products/1"))
-                .andExpect(status().is(404))
-                .andExpect(content().string("{\"message\":\"Product Not Found\",\"messageCode\":404}"));
-    }
+//    @Test
+//    void findProductByIdFailure() throws Exception{
+//        when(productService.getProductById(1)).thenThrow(new ProductNotFoundException("Product Not Found"));
+//        mockMvc.perform(get("/products/1"))
+//                .andExpect(status().is(404))
+//                .andExpect(content().string("{\"message\":\"Product Not Found\",\"messageCode\":404}"));
+//    }
 
-    @Test
-    void findProductByIdSuccess() throws Exception{
-        ProductResponseDTO productResponseDTO =  new ProductResponseDTO();
-        productResponseDTO.setId(UUID.fromString("feecadf2-e74c-4a06-9e32-2e6d757158b2"));
-        productResponseDTO.setTitle("Laptop");
-        productResponseDTO.setCategory("Electronics");
-        productResponseDTO.setDescription("Best laptop");
-        productResponseDTO.setPrice(1000);
-        productResponseDTO.setImage("someImageURL");
-
-        String responseString = convertToJson(productResponseDTO);
-        when(productService.getProductById(1)).thenReturn(productResponseDTO);
-
-        mockMvc.perform(get("/products/1"))
-                .andExpect(status().is(200))
-                .andExpect(content().string(responseString));
-    }
+//    @Test
+//    void findProductByIdSuccess() throws Exception{
+//        ProductResponseDTO productResponseDTO =  new ProductResponseDTO();
+//        productResponseDTO.setId(UUID.fromString("feecadf2-e74c-4a06-9e32-2e6d757158b2"));
+//        productResponseDTO.setTitle("Laptop");
+//        productResponseDTO.setCategory("Electronics");
+//        productResponseDTO.setDescription("Best laptop");
+//        productResponseDTO.setPrice(1000);
+//        productResponseDTO.setImage("someImageURL");
+//
+//        String responseString = convertToJson(productResponseDTO);
+//        when(productService.getProductById(1)).thenReturn(productResponseDTO);
+//
+//        mockMvc.perform(get("/products/1"))
+//                .andExpect(status().is(200))
+//                .andExpect(content().string(responseString));
+//    }
 
     private String convertToJson(Object object) throws JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();

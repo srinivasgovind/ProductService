@@ -8,7 +8,7 @@ import dev.srinivas.ProductService.exception.ProductNotFoundException;
 import dev.srinivas.ProductService.model.Category;
 import dev.srinivas.ProductService.model.Price;
 import dev.srinivas.ProductService.model.Product;
-import dev.srinivas.ProductService.repository.ProductRepository;
+import dev.srinivas.ProductService.repository.ProductJpaRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,7 +25,7 @@ public class ProductServiceImplTest {
 
 
     @Mock // we need a mock object of the given attribute
-    private ProductRepository productRepository;
+    private ProductJpaRepository productJpaRepository;
 
     @InjectMocks // this is the class we want to test, and this is where we would inject mock objects
     private  ProductServiceImpl productService;
@@ -51,7 +51,7 @@ public class ProductServiceImplTest {
         mockProduct.setDescription("testDescription");
         mockProduct.setPrice(mockPrice);
         mockProduct.setCategory(mockCategory);
-        when(productRepository.findByTitle(any())).thenReturn(mockProduct);
+        when(productJpaRepository.findByTitle(any())).thenReturn(mockProduct);
         //Act
         ProductResponseDTO actualResponse = productService.findProductByTitle(testTitle);
 
@@ -65,7 +65,7 @@ public class ProductServiceImplTest {
     public void testFindByProductByTitle_RepoRespondsWithNullObject() throws ProductNotFoundException{
         //Arrange
         String testTitle = "TestProductTitle";
-        when(productRepository.findByTitle(testTitle)).thenReturn(null);
+        when(productJpaRepository.findByTitle(testTitle)).thenReturn(null);
         Assertions.assertThrows(ProductNotFoundException.class,  ()->productService.findProductByTitle(testTitle));
 
     }
@@ -86,7 +86,7 @@ public class ProductServiceImplTest {
         mockProduct.setDescription("testDescription");
         mockProduct.setPrice(mockPrice);
         mockProduct.setCategory(mockCategory);
-        when(productRepository.findByTitle(testTitle)).thenReturn(mockProduct);
+        when(productJpaRepository.findByTitle(testTitle)).thenReturn(mockProduct);
         //Assert and Act
         Assertions.assertThrows(InvalidTitleException.class, ()-> productService.findProductByTitle(testTitle));
 
