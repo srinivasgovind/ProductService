@@ -1,0 +1,13 @@
+
+
+
+Configuration Details -
+ddl.auto -> create, update, verify
+create-> whenever application starts, it creates all new tables and schemas. if application restarts all existing tables and data will be dropped and recreated
+update-> everytime you start the application, only the udpate changes are implemented.
+Verify->  it does not create/update anything, it just verifies if the DB has all the tables and schemas mentioned in code, if not matching show erros
+and won't start the application
+
+Local Development -> Create or Update
+Production-> Verify
+Generally Tables and schemas are created using seperate script through Flyway,  Liquidbase etc
