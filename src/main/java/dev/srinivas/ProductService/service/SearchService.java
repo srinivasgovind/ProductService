@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Implementation of the SearchService using Pagination & Sorting.
+ */
 @Service
 public class SearchService {
 

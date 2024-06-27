@@ -13,23 +13,37 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * REST controller for handling search operations.
+ */
 @RestController
 @RequestMapping("/search")
 public class SearchController {
 
     private SearchService searchService;
 
-    public SearchController(SearchService searchService){
+    /**
+     * Constructor for SearchController.
+     * @param searchService the search service
+     */
+    public SearchController(SearchService searchService) {
         this.searchService = searchService;
     }
 
+    /**
+     * Searches for products based on the search request parameters.
+     * @param requestDto the search request data transfer object
+     * @return a page of generic product data transfer objects
+     */
     @PostMapping
-    public Page<GenericProductDto> searchProducts(@RequestBody SearchRequestDto requestDto){
-        List<GenericProductDto> genericProductDtos =searchService.searchProducts(requestDto.getQuery(), requestDto.getPageNumber(), requestDto.getItemsPerPage()
-        , requestDto.getSortParams());
+    public Page<GenericProductDto> searchProducts(@RequestBody SearchRequestDto requestDto) {
+        List<GenericProductDto> genericProductDtos = searchService.searchProducts(
+                requestDto.getQuery(),
+                requestDto.getPageNumber(),
+                requestDto.getItemsPerPage(),
+                requestDto.getSortParams()
+        );
 
-        Page<GenericProductDto> genericProductDtoPage = new PageImpl<>(genericProductDtos);
-
-        return genericProductDtoPage;
+        return new PageImpl<>(genericProductDtos);
     }
 }

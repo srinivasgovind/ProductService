@@ -7,6 +7,9 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Optional;
 
+/**
+ * Component responsible for validating JWT tokens by making an HTTP call to the UserService.
+ */
 @Component
 public class TokenValidator {
 

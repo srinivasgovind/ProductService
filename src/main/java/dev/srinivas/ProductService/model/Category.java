@@ -4,6 +4,9 @@ import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Category Entity
+ */
 @Setter
 @Getter
 @Entity

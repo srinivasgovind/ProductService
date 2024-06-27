@@ -8,7 +8,17 @@ import dev.srinivas.ProductService.exception.ProductNotFoundException;
 import dev.srinivas.ProductService.model.Product;
 
 import java.util.UUID;
-
+/**
+ * Service interface for managing products.
+ *
+ * This interface defines the contract for product-related operations, including:
+ * - Retrieving all products
+ * - Retrieving a product by its ID
+ * - Creating a new product
+ * - Deleting a product by its ID
+ * - Updating a product
+ * - Finding a product by its title
+ */
 public interface ProductService {
 
     ProductListResponseDTO getAllProducts();

@@ -6,6 +6,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * Entity representing an order in the e-commerce system.
+ */
 @Data
 @Entity(name = "ECOM_ORDER")
 public class Order extends BaseModel{

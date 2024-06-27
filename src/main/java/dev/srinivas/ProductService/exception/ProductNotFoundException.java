@@ -1,5 +1,8 @@
 package dev.srinivas.ProductService.exception;
 
+/**
+ * ProductNotFoundException for Custom Exceptions.
+ */
 public class ProductNotFoundException extends  Exception{
 
     public ProductNotFoundException(String message) {

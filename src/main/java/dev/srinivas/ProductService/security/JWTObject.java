@@ -6,6 +6,9 @@ import lombok.Setter;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This is a Data Transfer Object (DTO) representing a JWT payload.
+ */
 @Getter
 @Setter
 public class JWTObject {

@@ -1,5 +1,8 @@
 package dev.srinivas.ProductService.exception;
 
+/**
+ * InvalidTokenException for Custom Exceptions.
+ */
 public class InvalidTokenException extends RuntimeException{
     public InvalidTokenException() {
     }

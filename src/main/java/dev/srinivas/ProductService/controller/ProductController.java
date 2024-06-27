@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Base64;
 import java.util.UUID;
 
+/**
+ * REST controller for managing products.
+ */
 @RestController
 public class ProductController {
 
@@ -27,10 +30,10 @@ public class ProductController {
 
  private UserServiceClient userServiceClient;
 
-private RedisTemplate<String, Object> redisTemplate;
+ private RedisTemplate<String, Object> redisTemplate;
 
- @Autowired // Autowired is optional here for constructor Injection
- public ProductController(@Qualifier("productService") ProductService productService, UserServiceClient userServiceClient, RedisTemplate redisTemplate){
+ @Autowired // Autowired is optional here for constructor injection
+ public ProductController(@Qualifier("productService") ProductService productService, UserServiceClient userServiceClient, RedisTemplate redisTemplate) {
   this.productService = productService;
   this.userServiceClient = userServiceClient;
   this.redisTemplate = redisTemplate;
@@ -38,42 +41,75 @@ private RedisTemplate<String, Object> redisTemplate;
 
  private RestTemplateBuilder restTemplateBuilder;
 
+ /**
+  * Retrieves a product by its ID.
+  * @param authToken the authorization token
+  * @param id the ID of the product
+  * @return the product response
+  * @throws ProductNotFoundException if the product is not found
+  */
  @GetMapping("/products/{id}")
  public ResponseEntity getProductFromId(@RequestHeader(HttpHeaders.AUTHORIZATION) String authToken,
                                         @PathVariable("id") UUID id) throws ProductNotFoundException {
-
- ProductResponseDTO response = productService.getProductById(authToken, id);
- return  ResponseEntity.ok(response);
+  ProductResponseDTO response = productService.getProductById(authToken, id);
+  return ResponseEntity.ok(response);
  }
 
+ /**
+  * Retrieves all products.
+  * @param authToken the authorization token (optional)
+  * @return the list of all products
+  */
  @GetMapping("/products")
- public ResponseEntity getAllProducts(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authToken){
-
+ public ResponseEntity getAllProducts(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authToken) {
   ProductListResponseDTO response = productService.getAllProducts();
-
-  return  ResponseEntity.ok(response);
+  return ResponseEntity.ok(response);
  }
+
+ /**
+  * Creates a new product.
+  * @param authToken the authorization token (optional)
+  * @param productRequestDTO the product request details
+  * @return the created product response
+  * @throws Exception if there is an error during product creation
+  */
  @PostMapping("/products")
  public ResponseEntity createProduct(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authToken, @RequestBody ProductRequestDTO productRequestDTO) throws Exception {
-    validateUser(authToken);
-   ProductResponseDTO requestDTO = productService.createProduct(productRequestDTO);
-
-   return ResponseEntity.ok(requestDTO);
+  validateUser(authToken);
+  ProductResponseDTO requestDTO = productService.createProduct(productRequestDTO);
+  return ResponseEntity.ok(requestDTO);
  }
 
+ /**
+  * Deletes a product by its ID.
+  * @param authToken the authorization token (optional)
+  * @param id the ID of the product
+  * @return the deletion status
+  */
  @DeleteMapping("/products/{id}")
- public ResponseEntity deleteProductById(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authToken, @PathVariable("id") int id){
-    boolean response = productService.deleteProduct(id);
-
-    return ResponseEntity.ok(response);
+ public ResponseEntity deleteProductById(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authToken, @PathVariable("id") int id) {
+  boolean response = productService.deleteProduct(id);
+  return ResponseEntity.ok(response);
  }
 
+ /**
+  * Retrieves a product by its title.
+  * @param authToken the authorization token (optional)
+  * @param title the title of the product
+  * @return the product response
+  * @throws ProductNotFoundException if the product is not found
+  */
  @GetMapping("/products/title/{title}")
  public ResponseEntity getProductByTitle(@RequestHeader(value = HttpHeaders.AUTHORIZATION, required = false) String authToken, @PathVariable("title") String title) throws ProductNotFoundException {
-
   ProductResponseDTO response = productService.findProductByTitle(title);
-  return  ResponseEntity.ok(response);
+  return ResponseEntity.ok(response);
  }
+
+ /**
+  * Validates the user by decoding the token and checking its status.
+  * @param token the authorization token
+  * @throws Exception if the token is invalid
+  */
  private void validateUser(String token) throws Exception {
   String[] chunks = token.split("\\.");
   Base64.Decoder decoder = Base64.getUrlDecoder();

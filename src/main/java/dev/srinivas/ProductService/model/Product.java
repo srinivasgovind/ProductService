@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.elasticsearch.annotations.Document;
 
-//same name as class name then, no need to give Entity name.(optional)
+/**
+ * Entity representing of Product.
+ */
 @Getter
 @Setter
 @Entity(name = "PRODUCT")
@@ -24,7 +26,6 @@ public class Product extends BaseModel{
         GenericProductDto genericProductDto = new GenericProductDto();
         genericProductDto.setTitle(product.getTitle());
         genericProductDto.setDescription(product.getDescription());
-        // genericProductDto.setPrice(product.getPrice());
         genericProductDto.setImage(product.getImage());
         return genericProductDto;
     }
